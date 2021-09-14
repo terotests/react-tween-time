@@ -13,16 +13,32 @@ npm install --save react-tween-time
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+// after 2000 milliseconds t scales from 0 to 1
+const [t] = useTweenTime({
+  startAt: 1000,
+  mode: 'autostart',
+  duration: 2000,
+  easingFn: easing.inOutQuint
+})
+```
 
-import MyComponent from 'react-tween-time'
-import 'react-tween-time/dist/index.css'
+Manual control
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
-}
+```tsx
+// after 2000 milliseconds t scales from 0 to 1
+const [t, anim] = useTweenTime({
+  startAt: 1000,
+  mode: 'manualstart',
+  duration: 2000,
+  easingFn: easing.inOutQuint
+})
+
+// start animation
+anim.start()
+// pause animation
+anim.pause()
+// continue paused animation
+anim.resume()
 ```
 
 ## License
