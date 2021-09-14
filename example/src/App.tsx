@@ -4,13 +4,13 @@ import { easing, useTweenTime } from 'react-tween-time'
 
 const App = () => {
   const [t] = useTweenTime({
-    startAt: 1000,
+    startAt: 2000,
     mode: 'autostart',
     duration: 2000,
     easingFn: easing.elastic
   })
   const [t2, anim] = useTweenTime({
-    startAt: 0,
+    startAt: 1000,
     mode: 'manualstart',
     duration: 4000,
     easingFn: easing.inOutCubic,

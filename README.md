@@ -13,22 +13,35 @@ npm install --save react-tween-time
 ## Usage
 
 ```tsx
-// after 2000 milliseconds t scales from 0 to 1
-const [t] = useTweenTime({
-  startAt: 1000,
-  mode: 'autostart',
-  duration: 2000,
-  easingFn: easing.inOutQuint
-})
+import React from 'react'
+import { easing, useTweenTime } from 'react-tween-time'
+
+const Example = () => {
+  // after 1000 milliseconds t scales from 0 to 1 in two seconds
+  const [t] = useTweenTime({
+    startAt: 1000,
+    mode: 'autostart',
+    duration: 2000,
+    easingFn: easing.inOutQuint
+  })
+  return (
+    <div
+      style={{
+        transform: `translateX(${t * 100}px)`
+      }}
+    >
+      Moving...
+    </div>
+  )
+}
 ```
 
 Manual control
 
 ```tsx
-// after 2000 milliseconds t scales from 0 to 1
 const [t, anim] = useTweenTime({
   startAt: 1000,
-  mode: 'manualstart',
+  mode: 'manualstart', // does not start automatically
   duration: 2000,
   easingFn: easing.inOutQuint
 })
@@ -39,6 +52,16 @@ anim.start()
 anim.pause()
 // continue paused animation
 anim.resume()
+```
+
+Animation end event
+
+```tsx
+const [t, anim] = useTweenTime({
+  onEnd: () => {
+    /* animation has ended */
+  }
+})
 ```
 
 ## License
