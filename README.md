@@ -36,7 +36,7 @@ const Example = () => {
 }
 ```
 
-Manual control
+Control manually
 
 ```tsx
 const [t, anim] = useTweenTime({
@@ -54,7 +54,7 @@ anim.pause()
 anim.resume()
 ```
 
-Animation end event
+React to the animation end
 
 ```tsx
 const [t, anim] = useTweenTime({

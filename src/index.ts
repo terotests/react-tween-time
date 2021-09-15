@@ -33,7 +33,7 @@ export const useTweenTime = (args: TweenArguments): [number, TweenControl] => {
   const startAt = args.startAt || 0
   const duration = args.duration || 1000
   const easingFn = args.easingFn || easing.linear
-  const [t0, setT0] = React.useState(() => +new Date())
+  const [t0, setT0] = React.useState(() => Date.now())
   const [tPause, setTPause] = React.useState(0)
   const [internalTime, setInternalTime] = React.useState(0)
   const [value, setValue] = React.useState(easingFn(0))
@@ -44,7 +44,6 @@ export const useTweenTime = (args: TweenArguments): [number, TweenControl] => {
   React.useEffect(() => {
     const callback = () => {
       if (animationOn) {
-        const t = +new Date() - t0 - startAt
         if (internalTime >= 1) {
           setAnimationOn(false)
           setInternalTime(1)
@@ -55,12 +54,13 @@ export const useTweenTime = (args: TweenArguments): [number, TweenControl] => {
             setValue(easingFn(internalTime))
           }
         }
+        const t = Date.now() - t0 - startAt
         setInternalTime(t / duration)
       } else {
         if (internalTime === 0 && args.mode === 'autostart') {
           setAnimationOn(true)
           setInternalTime(0)
-          setT0(+new Date())
+          setT0(Date.now())
         }
       }
     }
@@ -76,17 +76,17 @@ export const useTweenTime = (args: TweenArguments): [number, TweenControl] => {
     value,
     {
       start: () => {
-        setT0(+new Date())
+        setT0(Date.now())
         setInternalTime(0)
         setAnimationOn(true)
         setValue(easingFn(0))
       },
       pause: () => {
         setAnimationOn(false)
-        setTPause(+new Date() - t0)
+        setTPause(Date.now() - t0)
       },
       resume: () => {
-        setT0(+new Date() - tPause)
+        setT0(Date.now() - tPause)
         setAnimationOn(true)
       }
     }
